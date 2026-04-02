@@ -12,13 +12,13 @@ struct AFButton: View {
     var title: String
     
     var body: some View {
-        Text(title)
-            .font(.title2)
+        Text("Learn More")
             .fontWeight(.semibold)
-            .frame(width: 280, height: 50)
-            .background(Color.red)
-            .foregroundStyle(.white)
-            .cornerRadius(10)
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 16)
+            .background(Color.blue)
+            .cornerRadius(14)
     }
 }
 

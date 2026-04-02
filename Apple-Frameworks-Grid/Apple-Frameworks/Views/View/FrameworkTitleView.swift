@@ -22,6 +22,7 @@ struct FrameworkTitleView: View {
                 .font(.caption)
                 .fontWeight(.semibold)
                 .multilineTextAlignment(.center)
+                .foregroundColor(Color(.white))
                 // the smallest this text is gonna go is 60% of the font size
                 // used to handle font scaling cause some names are big and we have to readjust in that area
                 .minimumScaleFactor(0.6)

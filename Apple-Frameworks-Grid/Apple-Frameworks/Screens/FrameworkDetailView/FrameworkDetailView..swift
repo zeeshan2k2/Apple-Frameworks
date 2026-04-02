@@ -12,7 +12,6 @@ import WebKit
 struct FrameworkDetailView_: View {
     
     var framework: Framework
-    @Binding var isShowingDetailView: Bool
     @State private var isShowingSafariView: Bool = false
     
     var body: some View {
@@ -21,14 +20,6 @@ struct FrameworkDetailView_: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
-                
-                // MARK: - Dismiss Button
-                HStack {
-                    Spacer()
-                    XDismissedButton(isShowingDetailView: $isShowingDetailView)
-                }
-                .padding(.horizontal)
-                .padding(.top)
                 
                 // MARK: - Hero Section
                 VStack(spacing: 16) {
@@ -74,13 +65,7 @@ struct FrameworkDetailView_: View {
                     isShowingSafariView = true
                 } label: {
                     // UI
-                    Text("Learn More")
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(Color.blue)
-                        .cornerRadius(14)
+                    AFButton(title: "Learn More")
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 24)
@@ -97,6 +82,6 @@ struct FrameworkDetailView_: View {
 }
 
 #Preview {
-    FrameworkDetailView_(framework: MockData.sampleFramework, isShowingDetailView: .constant(false))
+    FrameworkDetailView_(framework: MockData.sampleFramework)
         .preferredColorScheme(.dark)
 }

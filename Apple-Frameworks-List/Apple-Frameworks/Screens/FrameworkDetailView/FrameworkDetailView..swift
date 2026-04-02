@@ -67,13 +67,7 @@ struct FrameworkDetailView_: View {
                     isShowingSafariView = true
                 } label: {
                     // UI
-                    Text("Learn More")
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(Color.blue)
-                        .cornerRadius(14)
+                    AFButton(title: "Learn More")
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 24)

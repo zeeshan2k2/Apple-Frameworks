@@ -14,7 +14,7 @@ struct FrameworkGridView: View {
     @StateObject var viewModel = FrameworkGridViewModel()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 Color(.systemGroupedBackground)
                     .ignoresSafeArea()
@@ -22,22 +22,21 @@ struct FrameworkGridView: View {
                 ScrollView {
                     LazyVGrid(columns: viewModel.columns, spacing: 16) {
                         ForEach(MockData.frameworks) { framework in
-                            FrameworkTitleView(
-                                name: framework.name,
-                                imageName: framework.imageName
-                            )
-                            .background(Color(.secondarySystemBackground))
-                            .cornerRadius(16)
-                            .onTapGesture {
-                                // Setting selectedFramework triggers didSet in ViewModel
-                                // which sets isShowingDetailView = true
-                                // This indirectly controls sheet presentation
-                                viewModel.selectedFramework = framework
+                            NavigationLink(value: framework) {
+                                FrameworkTitleView(
+                                    name: framework.name,
+                                    imageName: framework.imageName
+                                )
+                                .background(Color(.secondarySystemBackground))
+                                .cornerRadius(16)
                             }
                         }
                     }
                     .padding()
                 }
+            }
+            .navigationDestination(for: Framework.self) { framework in
+                FrameworkDetailView_(framework: framework)
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -47,20 +46,6 @@ struct FrameworkGridView: View {
                             .fontWeight(.semibold)
                     }
                 }
-            }
-            
-            // SwiftUI observes this binding
-            // When isShowingDetailView becomes true → sheet appears
-            // When it becomes false → sheet dismisses
-            .sheet(isPresented: $viewModel.isShowingDetailView) {
-                FrameworkDetailView_(
-                    // Data passed down (read-only)
-                    framework: viewModel.selectedFramework ?? MockData.sampleFramework,
-                    
-                    // Binding passed down (read + write access)
-                    // Child can mutate this to dismiss the sheet
-                    isShowingDetailView: $viewModel.isShowingDetailView
-                )
             }
         }
     }
