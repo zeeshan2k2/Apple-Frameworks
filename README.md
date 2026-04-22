@@ -1,14 +1,15 @@
 <h1>Apple Frameworks</h1>
 
 <p>
-Apple Frameworks is a SwiftUI-based exploration project focused on building a structured, scalable UI while working with real-world navigation, state management, and modular design patterns.
+Apple Frameworks is a SwiftUI-based exploration project focused on building a clean and structured UI 
+while working with navigation, state management, and basic architectural patterns.
 </p>
 
 <h2>Overview</h2>
 
 <p>
-This is not just a UI app. It is a structured implementation of SwiftUI concepts including navigation flow, 
-data-driven UI updates, and component reuse using the MVVM pattern.
+This project focuses on implementing core SwiftUI concepts such as navigation, 
+state-driven UI updates, and reusable components using a simple MVVM structure.
 </p>
 
 <h2>Notes</h2>
