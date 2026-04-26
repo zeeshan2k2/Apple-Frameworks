@@ -11,8 +11,7 @@ import WebKit
 
 struct FrameworkDetailView_: View {
     
-    var framework: Framework
-    @State private var isShowingSafariView: Bool = false
+    @ObservedObject var viewModel: FrameworkDetailViewModel
     
     var body: some View {
         ZStack {
@@ -23,7 +22,7 @@ struct FrameworkDetailView_: View {
                 
                 // MARK: - Hero Section
                 VStack(spacing: 16) {
-                    Image(framework.imageName)
+                    Image(viewModel.framework.imageName)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 90, height: 90)
@@ -32,7 +31,7 @@ struct FrameworkDetailView_: View {
                         .cornerRadius(24)
                         .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
                     
-                    Text(framework.name)
+                    Text(viewModel.framework.name)
                         .font(.title2)
                         .fontWeight(.bold)
                 }
@@ -46,7 +45,7 @@ struct FrameworkDetailView_: View {
                         .fontWeight(.semibold)
                         .foregroundColor(.secondary)
                     
-                    Text(framework.description)
+                    Text(viewModel.framework.description)
                         .font(.body)
                         .foregroundColor(.primary)
                         .lineSpacing(4)
@@ -58,11 +57,15 @@ struct FrameworkDetailView_: View {
                 .padding(.horizontal)
                 
                 Spacer()
+//                // To Open the Safari app
+//                Link(destination: URL(string: viewModel.framework.urlString) ?? URL(string: "https://apple.com")!) {
+//                    AFButton(title: "Learn More")
+//                }
                 
                 // MARK: - Learn More Button
                 Button {
                     // action
-                    isShowingSafariView = true
+                    viewModel.isShowingSafariView = true
                 } label: {
                     // UI
                     AFButton(title: "Learn More")
@@ -71,17 +74,27 @@ struct FrameworkDetailView_: View {
                 .padding(.bottom, 24)
             }
         }
-        .sheet(isPresented: $isShowingSafariView, content: {
-            // Natvie Swift UI method
-            WebView(url: URL(string: framework.urlString)!)
+        .sheet(isPresented: $viewModel.isShowingSafariView, content: {
             
-            // By Using UIKit
-            // SafariView(url: URL(string: framework.urlString) ?? URL(string: "https://apple.com")!)
+            VStack {
+                HStack {
+                    Spacer()
+                    Button("Cancel") {
+                        viewModel.isShowingSafariView = false
+                    }
+                    .padding()
+                }
+                
+                // Natvie Swift UI method
+                WebView(url: URL(string: viewModel.framework.urlString)!)
+                
+                // By Using UIKit
+                // SafariView(url: URL(string: framework.urlString) ?? URL(string: "https://apple.com")!)
+            }
         })
     }
 }
 
 #Preview {
-    FrameworkDetailView_(framework: MockData.sampleFramework)
-        .preferredColorScheme(.dark)
+    FrameworkDetailView_(viewModel: FrameworkDetailViewModel(framework: MockData.sampleFramework))
 }

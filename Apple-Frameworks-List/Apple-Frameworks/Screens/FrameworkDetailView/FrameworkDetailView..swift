@@ -74,11 +74,22 @@ struct FrameworkDetailView_: View {
             }
         }
         .sheet(isPresented: $isShowingSafariView, content: {
-            // Natvie Swift UI method
-            WebView(url: URL(string: framework.urlString)!)
             
-            // By Using UIKit
-            // SafariView(url: URL(string: framework.urlString) ?? URL(string: "https://apple.com")!)
+            VStack {
+                HStack {
+                    Spacer()
+                    Button("Cancel") {
+                        isShowingSafariView = false
+                    }
+                    .padding()
+                }
+                
+                // Natvie Swift UI method
+                WebView(url: URL(string: framework.urlString)!)
+                
+                // By Using UIKit
+                // SafariView(url: URL(string: framework.urlString) ?? URL(string: "https://apple.com")!)
+            }
         })
     }
 }

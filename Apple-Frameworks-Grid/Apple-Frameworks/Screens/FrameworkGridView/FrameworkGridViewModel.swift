@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Combine
+internal import Combine
 import SwiftUI
 
 final class FrameworkGridViewModel: ObservableObject {

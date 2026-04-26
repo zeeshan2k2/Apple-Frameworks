@@ -36,7 +36,7 @@ struct FrameworkGridView: View {
                 }
             }
             .navigationDestination(for: Framework.self) { framework in
-                FrameworkDetailView_(framework: framework)
+                FrameworkDetailView_(viewModel: FrameworkDetailViewModel(framework: framework))
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
